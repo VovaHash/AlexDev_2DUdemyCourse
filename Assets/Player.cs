@@ -7,16 +7,17 @@ public class Player : MonoBehaviour
     private float xInput;
     private Rigidbody2D rigidBody;
     private Animator animator;
-    private float moveSpeed = 7f;
-    private float jumpForce = 6f;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float jumpForce = 6f;
+    private bool facingRight = true;
     private bool isMoving;
-    //[Header("Movement")]
-    [SerializeField] private bool facingRight = true;
+    
 
-    //[Header("Collision")]
+    [Header("Collision")]
     [SerializeField] private float groundCheckDistance;
-    [SerializeField] private bool isGrounded;
     [SerializeField] private LayerMask groundLayerMask;
+    private bool isGrounded;
 
 
 
@@ -43,8 +44,10 @@ public class Player : MonoBehaviour
     private void HandleAnimations()
     {
         
-        isMoving = rigidBody.linearVelocity.x != 0;
-        animator.SetBool("isMoving", isMoving);
+        
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("yVelocity", rigidBody.linearVelocity.y);
+        animator.SetFloat("xVelocity", rigidBody.linearVelocity.x);
 
 
     }
